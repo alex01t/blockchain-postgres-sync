@@ -2159,6 +2159,11 @@ CREATE INDEX IF NOT EXISTS txs_7_order_senders_uid_partial_idx
     ON txs_7 ((ARRAY[order1 ->> 'sender'::TEXT, order2 ->> 'sender'::TEXT]), uid)
     WHERE ((sender)::TEXT = '3PJaDyprvekvPXPuAtxrapacuDJopgJRaU3'::TEXT);
 
+CREATE INDEX IF NOT EXISTS candles_assets_id_partial_idx
+    ON candles (amount_asset_id, price_asset_id)
+    WHERE ((("interval")::TEXT = '1d'::TEXT) AND
+           ((matcher_address)::TEXT = '3PJaDyprvekvPXPuAtxrapacuDJopgJRaU3'::TEXT));
+
 
 CREATE INDEX IF NOT EXISTS txs_7_amount_asset_id_price_asset_id_uid_partial_new_idx
     ON txs_7 (amount_asset_id, price_asset_id, uid)
@@ -2167,3 +2172,8 @@ CREATE INDEX IF NOT EXISTS txs_7_amount_asset_id_price_asset_id_uid_partial_new_
 CREATE INDEX IF NOT EXISTS txs_7_order_senders_uid_partial_new_idx
     ON txs_7 ((ARRAY[order1 ->> 'sender'::TEXT, order2 ->> 'sender'::TEXT]), uid)
     WHERE ((sender)::TEXT = '3PEjHv3JGjcWNpYEEkif2w8NXV4kbhnoGgu'::TEXT);
+
+CREATE INDEX IF NOT EXISTS candles_assets_id_partial_new_idx
+    ON candles (amount_asset_id, price_asset_id)
+    WHERE ((("interval")::TEXT = '1d'::TEXT) AND
+           ((matcher_address)::TEXT = '3PEjHv3JGjcWNpYEEkif2w8NXV4kbhnoGgu'::TEXT));
