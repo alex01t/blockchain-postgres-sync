@@ -2146,4 +2146,24 @@ ALTER TABLE public.txs
 
 
 ALTER TABLE public.waves_data
-	ADD CONSTRAINT fk_waves_data FOREIGN KEY (height) REFERENCES blocks(height) ON DELETE CASCADE;
+    ADD CONSTRAINT fk_waves_data FOREIGN KEY (height) REFERENCES blocks(height) ON DELETE CASCADE;
+
+
+-- Specific for mainnet indexes
+
+CREATE INDEX IF NOT EXISTS txs_7_amount_asset_id_price_asset_id_uid_partial_idx
+    ON txs_7 (amount_asset_id, price_asset_id, uid)
+    WHERE ((sender)::TEXT = '3PJaDyprvekvPXPuAtxrapacuDJopgJRaU3'::TEXT);
+
+CREATE INDEX IF NOT EXISTS txs_7_order_senders_uid_partial_idx
+    ON txs_7 ((ARRAY[order1 ->> 'sender'::TEXT, order2 ->> 'sender'::TEXT]), uid)
+    WHERE ((sender)::TEXT = '3PJaDyprvekvPXPuAtxrapacuDJopgJRaU3'::TEXT);
+
+
+CREATE INDEX IF NOT EXISTS txs_7_amount_asset_id_price_asset_id_uid_partial_new_idx
+    ON txs_7 (amount_asset_id, price_asset_id, uid)
+    WHERE ((sender)::TEXT = '3PEjHv3JGjcWNpYEEkif2w8NXV4kbhnoGgu'::TEXT);
+
+CREATE INDEX IF NOT EXISTS txs_7_order_senders_uid_partial_new_idx
+    ON txs_7 ((ARRAY[order1 ->> 'sender'::TEXT, order2 ->> 'sender'::TEXT]), uid)
+    WHERE ((sender)::TEXT = '3PEjHv3JGjcWNpYEEkif2w8NXV4kbhnoGgu'::TEXT);
