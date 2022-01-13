@@ -1741,7 +1741,7 @@ CREATE INDEX txs_10_alias_sender_idx ON public.txs_10 USING btree (alias, sender
 CREATE INDEX txs_10_alias_uid_idx ON public.txs_10 USING btree (alias, uid);
 
 
-CREATE INDEX txs_10_time_stamp_uid_idx ON public.txs_10 USING btree (time_stamp, uid);
+CREATE UNIQUE INDEX txs_10_uid_time_stamp_unique_idx ON txs_10 (uid, time_stamp);
 
 
 CREATE INDEX txs_10_height_idx ON public.txs_10 USING btree (height);
@@ -1756,7 +1756,7 @@ CREATE INDEX txs_10_id_idx ON public.txs_10 USING hash (id);
 CREATE INDEX txs_11_asset_id_uid_idx ON public.txs_11 USING btree (asset_id, uid);
 
 
-CREATE INDEX txs_11_time_stamp_uid_idx ON public.txs_11 USING btree (time_stamp, uid);
+CREATE UNIQUE INDEX txs_11_uid_time_stamp_unique_idx ON txs_11 (uid, time_stamp);
 
 
 CREATE INDEX txs_11_height_idx ON public.txs_11 USING btree (height);
@@ -1792,7 +1792,7 @@ CREATE INDEX txs_12_data_height_idx ON public.txs_12_data USING btree (height);
 CREATE INDEX txs_12_data_tx_uid_idx ON public.txs_12_data USING btree (tx_uid);
 
 
-CREATE INDEX txs_12_time_stamp_uid_idx ON public.txs_12 USING btree (time_stamp, uid);
+CREATE UNIQUE INDEX txs_12_uid_time_stamp_unique_idx ON txs_12 (uid, time_stamp);
 
 
 CREATE INDEX txs_12_height_idx ON public.txs_12 USING btree (height);
@@ -1810,7 +1810,7 @@ CREATE INDEX txs_12_data_data_key_tx_uid_idx ON txs_12_data USING btree (data_ke
 CREATE INDEX txs_12_data_data_type_tx_uid_idx ON txs_12_data USING btree (data_type, tx_uid);
 
 
-CREATE INDEX txs_13_time_stamp_uid_idx ON public.txs_13 USING btree (time_stamp, uid);
+CREATE UNIQUE INDEX txs_13_uid_time_stamp_unique_idx ON txs_13 (uid, time_stamp);
 
 
 CREATE INDEX txs_13_height_idx ON public.txs_13 USING btree (height);
@@ -1825,7 +1825,7 @@ CREATE INDEX txs_13_sender_uid_idx ON public.txs_13 USING btree (sender, uid);
 CREATE INDEX txs_13_id_idx ON public.txs_13 USING hash (id);
 
 
-CREATE INDEX txs_14_time_stamp_uid_idx ON public.txs_14 USING btree (time_stamp, uid);
+CREATE UNIQUE INDEX txs_14_uid_time_stamp_unique_idx ON txs_14 (uid, time_stamp);
 
 
 CREATE INDEX txs_14_height_idx ON public.txs_14 USING btree (height);
@@ -1837,7 +1837,7 @@ CREATE INDEX txs_14_sender_uid_idx ON public.txs_14 USING btree (sender, uid);
 CREATE INDEX txs_14_id_idx ON public.txs_14 USING hash (id);
 
 
-CREATE INDEX txs_15_time_stamp_uid_idx ON public.txs_15 USING btree (time_stamp, uid);
+CREATE UNIQUE INDEX txs_15_uid_time_stamp_unique_idx ON txs_15 (uid, time_stamp);
 
 
 CREATE INDEX txs_15_height_idx ON public.txs_15 USING btree (height);
@@ -1855,7 +1855,7 @@ CREATE INDEX txs_15_id_idx ON public.txs_15 USING hash (id);
 CREATE INDEX txs_16_dapp_address_uid_idx ON public.txs_16 USING btree (dapp_address, uid);
 
 
-CREATE INDEX txs_16_time_stamp_uid_idx ON public.txs_16 USING btree (time_stamp, uid);
+CREATE UNIQUE INDEX txs_16_uid_time_stamp_unique_idx ON txs_16 (uid, time_stamp);
 
 
 CREATE INDEX txs_16_height_idx ON public.txs_16 USING btree (height);
@@ -1888,14 +1888,16 @@ CREATE INDEX txs_16_sender_time_stamp_uid_idx ON public.txs_16 (sender, time_sta
 CREATE INDEX txs_17_height_idx on txs_17 USING btree (height);
 
 
+CREATE UNIQUE INDEX txs_17_uid_time_stamp_unique_idx ON txs_17 (uid, time_stamp);
+
+
 CREATE INDEX txs_17_sender_time_stamp_id_idx on txs_17 (sender, time_stamp, uid);
 
 
 CREATE INDEX txs_17_asset_id_uid_idx on txs_17 (asset_id, uid);
 
 
-CREATE INDEX txs_1_time_stamp_uid_idx ON public.txs_1 USING btree (time_stamp, uid);
-
+CREATE UNIQUE INDEX txs_1_uid_time_stamp_unique_idx ON txs_1 (uid, time_stamp);
 
 CREATE INDEX txs_1_height_idx ON public.txs_1 USING btree (height);
 
@@ -1906,7 +1908,7 @@ CREATE INDEX txs_1_sender_uid_idx ON public.txs_1 USING btree (sender, uid);
 CREATE INDEX txs_1_id_idx ON public.txs_1 USING hash (id);
 
 
-CREATE INDEX txs_2_time_stamp_uid_idx ON public.txs_2 USING btree (time_stamp, uid);
+CREATE UNIQUE INDEX txs_2_uid_time_stamp_unique_idx ON txs_2 (uid, time_stamp);
 
 
 CREATE INDEX txs_2_height_idx ON public.txs_2 USING btree (height);
@@ -1921,7 +1923,7 @@ CREATE INDEX txs_2_id_idx ON public.txs_2 USING hash (id);
 CREATE INDEX txs_3_asset_id_uid_idx ON public.txs_3 USING btree (asset_id, uid);
 
 
-CREATE INDEX txs_3_time_stamp_uid_idx ON public.txs_3 USING btree (time_stamp, uid);
+CREATE UNIQUE INDEX txs_3_uid_time_stamp_unique_idx ON txs_3 (uid, time_stamp);
 
 
 CREATE INDEX txs_3_height_idx ON public.txs_3 USING btree (height);
@@ -1939,7 +1941,7 @@ CREATE INDEX txs_3_id_idx ON public.txs_3 USING hash (id);
 CREATE INDEX txs_4_asset_id_uid_idx ON public.txs_4 USING btree (asset_id, uid);
 
 
-CREATE INDEX txs_4_time_stamp_uid_idx ON public.txs_4 USING btree (time_stamp, uid);
+CREATE UNIQUE INDEX txs_4_uid_time_stamp_unique_idx ON txs_4 (uid, time_stamp);
 
 
 CREATE INDEX txs_4_height_uid_idx ON public.txs_4 USING btree (height, uid);
@@ -1957,7 +1959,7 @@ CREATE INDEX txs_4_sender_uid_idx ON txs_4 (sender, uid);
 CREATE INDEX txs_5_asset_id_uid_idx ON public.txs_5 USING btree (asset_id, uid);
 
 
-CREATE INDEX txs_5_time_stamp_uid_idx ON public.txs_5 USING btree (time_stamp, uid);
+CREATE UNIQUE INDEX txs_5_uid_time_stamp_unique_idx ON txs_5 (uid, time_stamp);
 
 
 CREATE INDEX txs_5_height_idx ON public.txs_5 USING btree (height);
@@ -1972,7 +1974,7 @@ CREATE INDEX txs_5_id_idx ON public.txs_5 USING hash (id);
 CREATE INDEX txs_6_asset_id_uid_idx ON public.txs_6 USING btree (asset_id, uid);
 
 
-CREATE INDEX txs_6_uid_time_stamp_idx ON public.txs_6 USING btree (time_stamp, uid);
+CREATE UNIQUE INDEX txs_6_uid_time_stamp_unique_idx ON txs_6 (uid, time_stamp);
 
 
 CREATE INDEX txs_6_height_idx ON public.txs_6 USING btree (height);
@@ -1984,7 +1986,7 @@ CREATE INDEX txs_6_sender_uid_idx ON public.txs_6 USING btree (sender, uid);
 CREATE INDEX txs_6_id_idx ON public.txs_6 USING hash (id);
 
 
-CREATE INDEX txs_7_uid_time_stamp_idx ON public.txs_7 USING btree (time_stamp, uid);
+CREATE UNIQUE INDEX txs_7_uid_time_stamp_unique_idx ON txs_7 (uid, time_stamp);
 
 
 CREATE INDEX txs_7_height_idx ON public.txs_7 USING btree (height);
@@ -2005,7 +2007,10 @@ CREATE INDEX txs_7_order_senders_uid_idx ON txs_7 USING gin ((ARRAY[order1->>'se
 CREATE INDEX txs_7_amount_asset_id_price_asset_id_uid_idx ON txs_7 (amount_asset_id, price_asset_id, uid);
 
 
-CREATE INDEX txs_8_uid_time_stamp_idx ON public.txs_8 USING btree (time_stamp, uid);
+CREATE INDEX txs_7_price_asset_id_uid_idx ON txs_7 (price_asset_id, uid);
+
+
+CREATE UNIQUE INDEX txs_8_uid_time_stamp_unique_idx ON txs_8 (uid, time_stamp);
 
 
 CREATE INDEX txs_8_height_idx ON public.txs_8 USING btree (height);
@@ -2023,7 +2028,7 @@ CREATE INDEX txs_8_sender_uid_idx ON public.txs_8 USING btree (sender, uid);
 CREATE INDEX txs_8_id_idx ON public.txs_8 USING hash (id);
 
 
-CREATE INDEX txs_9_uid_time_stamp_idx ON public.txs_9 USING btree (time_stamp, uid);
+CREATE UNIQUE INDEX txs_9_uid_time_stamp_unique_idx ON txs_9 (uid, time_stamp);
 
 
 CREATE INDEX txs_9_height_idx ON public.txs_9 USING btree (height);
