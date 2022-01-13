@@ -2159,3 +2159,7 @@ CREATE INDEX IF NOT EXISTS txs_7_order_senders_uid_partial_idx
     ON txs_7 ((ARRAY[order1 ->> 'sender'::TEXT, order2 ->> 'sender'::TEXT]), uid)
     WHERE ((sender)::TEXT = '3N8aZG6ZDfnh8YxS6aNcteobN8eXTWHaBBd'::TEXT);
 
+CREATE INDEX IF NOT EXISTS candles_assets_id_idx
+    ON candles (amount_asset_id, price_asset_id)
+    WHERE ((("interval")::TEXT = '1d'::TEXT) AND
+           ((matcher_address)::TEXT = '3N8aZG6ZDfnh8YxS6aNcteobN8eXTWHaBBd'::TEXT));
