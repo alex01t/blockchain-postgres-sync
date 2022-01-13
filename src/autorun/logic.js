@@ -18,6 +18,8 @@ const autorun = options => ({
           apiHeight
         );
 
+        console.info(`Starting blockchain-postgres-sync autorun from height ${startHeight}`);
+
         if (endHeight - startHeight > BLOCKS_CLOSE_ENOUGH_FOR_UPDATE_START) {
           const batches = createRequestHeights(
             startHeight,

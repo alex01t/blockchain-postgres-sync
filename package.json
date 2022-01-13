@@ -7,6 +7,7 @@
   "license": "MIT",
   "scripts": {
     "test": "jest",
+    "start": "node src/autorun/index.js",
     "download": "node src/runForRange.js",
     "update": "node src/update.js",
     "updateComposite": "node src/updateComposite/run.js",
