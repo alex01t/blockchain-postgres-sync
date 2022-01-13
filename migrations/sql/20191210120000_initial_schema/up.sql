@@ -612,6 +612,7 @@ begin
         proofs, 
         tx_version,
         fee,
+        fee_asset_id,
         status,
 		sender,
         sender_public_key,
@@ -630,6 +631,7 @@ begin
         jsonb_array_cast_text(t -> 'proofs'),
         (t->>'version')::smallint,
         (t->>'fee')::bigint,
+        coalesce(t->>'feeAssetId', 'WAVES'),
         coalesce(t->>'applicationStatus', 'succeeded'),
 		-- with sender
 		t->>'sender',
@@ -1461,7 +1463,8 @@ CREATE TABLE public.txs_16 (
     sender_public_key varchar NOT NULL,
     dapp_address varchar NOT NULL,
     dapp_alias varchar,
-    function_name varchar
+    function_name varchar,
+    fee_asset_id varchar NOT NULL
 ) INHERITS (public.txs);
 
 
