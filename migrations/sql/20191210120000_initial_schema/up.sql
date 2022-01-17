@@ -14,7 +14,7 @@ CREATE EXTENSION IF NOT EXISTS btree_gin WITH SCHEMA public;
 COMMENT ON EXTENSION btree_gin IS 'support for indexing common datatypes in GIN';
 
 
-CREATE FUNCTION public.count_affected_rows() RETURNS integer
+CREATE OR REPLACE  FUNCTION public.count_affected_rows() RETURNS integer
     LANGUAGE plpgsql
     AS $$
 DECLARE
@@ -26,7 +26,7 @@ END;
 $$;
 
 
-CREATE FUNCTION public.find_missing_blocks() RETURNS TABLE(missing_height integer)
+CREATE OR REPLACE FUNCTION public.find_missing_blocks() RETURNS TABLE(missing_height integer)
     LANGUAGE plpgsql
     AS $$
 DECLARE
@@ -60,7 +60,7 @@ BEGIN
 END; $$;
 
 
-CREATE FUNCTION public.get_address(_address_or_alias varchar) RETURNS varchar
+CREATE OR REPLACE FUNCTION public.get_address(_address_or_alias varchar) RETURNS varchar
     LANGUAGE plpgsql
     AS $$
 	declare 
@@ -84,7 +84,7 @@ CREATE FUNCTION public.get_address(_address_or_alias varchar) RETURNS varchar
 $$;
 
 
-CREATE FUNCTION public.get_alias(_raw_alias varchar) RETURNS varchar
+CREATE OR REPLACE FUNCTION public.get_alias(_raw_alias varchar) RETURNS varchar
     LANGUAGE plpgsql
     AS $$
 	declare
@@ -99,13 +99,13 @@ CREATE FUNCTION public.get_alias(_raw_alias varchar) RETURNS varchar
 $$;
 
 
-CREATE FUNCTION public.get_asset_id(text) RETURNS text
+CREATE OR REPLACE FUNCTION public.get_asset_id(text) RETURNS text
     LANGUAGE sql IMMUTABLE
     AS $_$
     SELECT COALESCE($1, 'WAVES');
 $_$;
 
-CREATE FUNCTION public.get_tuid_by_tx_id(_tx_id varchar) RETURNS bigint
+CREATE OR REPLACE FUNCTION public.get_tuid_by_tx_id(_tx_id varchar) RETURNS bigint
     LANGUAGE plpgsql
     AS $$
 	declare
@@ -117,7 +117,7 @@ CREATE FUNCTION public.get_tuid_by_tx_id(_tx_id varchar) RETURNS bigint
 $$;
 
 
-CREATE FUNCTION public.get_tuid_by_tx_height_and_position_in_block(_height int4, _position_in_block int4) RETURNS bigint
+CREATE OR REPLACE FUNCTION public.get_tuid_by_tx_height_and_position_in_block(_height int4, _position_in_block int4) RETURNS bigint
     LANGUAGE plpgsql
     AS $$
 	begin
@@ -126,7 +126,7 @@ CREATE FUNCTION public.get_tuid_by_tx_height_and_position_in_block(_height int4,
 $$;
 
 
-CREATE FUNCTION public.insert_all(b jsonb) RETURNS void
+CREATE OR REPLACE FUNCTION public.insert_all(b jsonb) RETURNS void
     LANGUAGE plpgsql
     AS $$
 begin
@@ -155,7 +155,7 @@ END
 $$;
 
 
-CREATE FUNCTION public.insert_block(b jsonb) RETURNS void
+CREATE OR REPLACE FUNCTION public.insert_block(b jsonb) RETURNS void
     LANGUAGE plpgsql
     AS $$
 begin
@@ -186,7 +186,7 @@ END
 $$;
 
 
-CREATE FUNCTION public.insert_txs_1(b jsonb) RETURNS void
+CREATE OR REPLACE FUNCTION public.insert_txs_1(b jsonb) RETURNS void
     LANGUAGE plpgsql
     AS $$
 begin
@@ -238,7 +238,7 @@ END
 $$;
 
 
-CREATE FUNCTION public.insert_txs_10(b jsonb) RETURNS void
+CREATE OR REPLACE FUNCTION public.insert_txs_10(b jsonb) RETURNS void
     LANGUAGE plpgsql
     AS $$
 begin
@@ -286,7 +286,7 @@ END
 $$;
 
 
-CREATE FUNCTION public.insert_txs_11(b jsonb) RETURNS void
+CREATE OR REPLACE FUNCTION public.insert_txs_11(b jsonb) RETURNS void
     LANGUAGE plpgsql
     AS $$
 BEGIN
@@ -361,7 +361,7 @@ END
 $$;
 
 
-CREATE FUNCTION public.insert_txs_12(b jsonb) RETURNS void
+CREATE OR REPLACE FUNCTION public.insert_txs_12(b jsonb) RETURNS void
     LANGUAGE plpgsql
     AS $$
 begin
@@ -450,7 +450,7 @@ END
 $$;
 
 
-CREATE FUNCTION public.insert_txs_13(b jsonb) RETURNS void
+CREATE OR REPLACE FUNCTION public.insert_txs_13(b jsonb) RETURNS void
     LANGUAGE plpgsql
     AS $$
 begin
@@ -498,7 +498,7 @@ END
 $$;
 
 
-CREATE FUNCTION public.insert_txs_14(b jsonb) RETURNS void
+CREATE OR REPLACE FUNCTION public.insert_txs_14(b jsonb) RETURNS void
     LANGUAGE plpgsql
     AS $$
 begin
@@ -548,7 +548,7 @@ END
 $$;
 
 
-CREATE FUNCTION public.insert_txs_15(b jsonb) RETURNS void
+CREATE OR REPLACE FUNCTION public.insert_txs_15(b jsonb) RETURNS void
     LANGUAGE plpgsql
     AS $$
 begin
@@ -598,7 +598,7 @@ END
 $$;
 
 
-CREATE FUNCTION public.insert_txs_16(b jsonb) RETURNS void
+CREATE OR REPLACE FUNCTION public.insert_txs_16(b jsonb) RETURNS void
     LANGUAGE plpgsql
     AS $$
 begin
@@ -725,7 +725,7 @@ END
 $$;
 
 
-CREATE FUNCTION insert_txs_17(b jsonb) RETURNS void
+CREATE OR REPLACE FUNCTION insert_txs_17(b jsonb) RETURNS void
 	language plpgsql
 AS $$
 BEGIN
@@ -777,7 +777,7 @@ END
 $$;
 
 
-CREATE FUNCTION public.insert_txs_2(b jsonb) RETURNS void
+CREATE OR REPLACE FUNCTION public.insert_txs_2(b jsonb) RETURNS void
     LANGUAGE plpgsql
     AS $$
 begin
@@ -829,7 +829,7 @@ END
 $$;
 
 
-CREATE FUNCTION public.insert_txs_3(b jsonb) RETURNS void
+CREATE OR REPLACE FUNCTION public.insert_txs_3(b jsonb) RETURNS void
     LANGUAGE plpgsql
     AS $$
 begin
@@ -889,7 +889,7 @@ END
 $$;
 
 
-CREATE FUNCTION public.insert_txs_4(b jsonb) RETURNS void
+CREATE OR REPLACE FUNCTION public.insert_txs_4(b jsonb) RETURNS void
     LANGUAGE plpgsql
     AS $$
 begin
@@ -946,7 +946,7 @@ END
 $$;
 
 
-CREATE FUNCTION public.insert_txs_5(b jsonb) RETURNS void
+CREATE OR REPLACE FUNCTION public.insert_txs_5(b jsonb) RETURNS void
     LANGUAGE plpgsql
     AS $$
 begin
@@ -998,7 +998,7 @@ END
 $$;
 
 
-CREATE FUNCTION public.insert_txs_6(b jsonb) RETURNS void
+CREATE OR REPLACE FUNCTION public.insert_txs_6(b jsonb) RETURNS void
     LANGUAGE plpgsql
     AS $$
 begin
@@ -1048,7 +1048,7 @@ END
 $$;
 
 
-CREATE FUNCTION public.insert_txs_7(b jsonb) RETURNS void
+CREATE OR REPLACE FUNCTION public.insert_txs_7(b jsonb) RETURNS void
     LANGUAGE plpgsql
     AS $$
 begin
@@ -1112,7 +1112,7 @@ END
 $$;
 
 
-CREATE FUNCTION public.insert_txs_8(b jsonb) RETURNS void
+CREATE OR REPLACE FUNCTION public.insert_txs_8(b jsonb) RETURNS void
     LANGUAGE plpgsql
     AS $$
 begin
@@ -1164,7 +1164,7 @@ END
 $$;
 
 
-CREATE FUNCTION public.insert_txs_9(b jsonb) RETURNS void
+CREATE OR REPLACE FUNCTION public.insert_txs_9(b jsonb) RETURNS void
     LANGUAGE plpgsql
     AS $$
 begin
@@ -1212,21 +1212,21 @@ END
 $$;
 
 
-CREATE FUNCTION public.jsonb_array_cast_int(jsonb) RETURNS integer[]
+CREATE OR REPLACE FUNCTION public.jsonb_array_cast_int(jsonb) RETURNS integer[]
     LANGUAGE sql IMMUTABLE
     AS $_$
     SELECT array_agg(x)::int[] || ARRAY[]::int[] FROM jsonb_array_elements_text($1) t(x);
 $_$;
 
 
-CREATE FUNCTION public.jsonb_array_cast_text(jsonb) RETURNS text[]
+CREATE OR REPLACE FUNCTION public.jsonb_array_cast_text(jsonb) RETURNS text[]
     LANGUAGE sql IMMUTABLE
     AS $_$
     SELECT array_agg(x) || ARRAY[]::text[] FROM jsonb_array_elements_text($1) t(x);
 $_$;
 
 
-CREATE FUNCTION public.on_block_insert() RETURNS trigger
+CREATE OR REPLACE FUNCTION public.on_block_insert() RETURNS trigger
     LANGUAGE plpgsql
     AS $$
 BEGIN
@@ -1236,7 +1236,7 @@ END
 $$;
 
 
-CREATE FUNCTION public.on_block_update() RETURNS trigger
+CREATE OR REPLACE FUNCTION public.on_block_update() RETURNS trigger
     LANGUAGE plpgsql
     AS $$
 BEGIN
@@ -1247,7 +1247,7 @@ END
 $$;
 
 
-CREATE FUNCTION public.reinsert_range(range_start integer, range_end integer) RETURNS void
+CREATE OR REPLACE FUNCTION public.reinsert_range(range_start integer, range_end integer) RETURNS void
     LANGUAGE plpgsql
     AS $$
 BEGIN
@@ -1265,7 +1265,7 @@ END
 $$;
 
 
-CREATE FUNCTION public.reinsert_range(range_start integer, range_end integer, step integer) RETURNS void
+CREATE OR REPLACE FUNCTION public.reinsert_range(range_start integer, range_end integer, step integer) RETURNS void
     LANGUAGE plpgsql
     AS $$
 BEGIN
@@ -1283,7 +1283,7 @@ END
 $$;
 
 
-CREATE FUNCTION public.text_timestamp_cast(text) RETURNS timestamp without time zone
+CREATE OR REPLACE FUNCTION public.text_timestamp_cast(text) RETURNS timestamp without time zone
     LANGUAGE plpgsql
     AS $_$
 begin
@@ -1297,15 +1297,7 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 
-CREATE TABLE public.assets_metadata (
-    asset_id varchar,
-    asset_name varchar,
-    ticker varchar,
-    height integer
-);
-
-
-CREATE TABLE public.blocks (
+CREATE TABLE IF NOT EXISTS public.blocks (
     schema_version smallint NOT NULL,
     time_stamp timestamp with time zone NOT NULL,
     reference varchar NOT NULL,
@@ -1320,13 +1312,13 @@ CREATE TABLE public.blocks (
 );
 
 
-CREATE TABLE public.blocks_raw (
+CREATE TABLE IF NOT EXISTS public.blocks_raw (
     height integer NOT NULL,
     b jsonb NOT NULL
 );
 
 
-CREATE TABLE public.candles (
+CREATE TABLE IF NOT EXISTS public.candles (
     time_start timestamp with time zone NOT NULL,
     amount_asset_id varchar NOT NULL,
     price_asset_id varchar NOT NULL,
@@ -1344,7 +1336,7 @@ CREATE TABLE public.candles (
 );
 
 
-CREATE TABLE public.pairs (
+CREATE TABLE IF NOT EXISTS public.pairs (
     amount_asset_id varchar NOT NULL,
     price_asset_id varchar NOT NULL,
     first_price numeric NOT NULL,
@@ -1360,15 +1352,7 @@ CREATE TABLE public.pairs (
 );
 
 
-CREATE TABLE tickers (
-	asset_id TEXT NOT NULL
-		CONSTRAINT tickers_pkey
-			PRIMARY KEY,
-	ticker TEXT NOT NULL
-);
-
-
-CREATE TABLE public.txs (
+CREATE TABLE IF NOT EXISTS public.txs (
     uid bigint NOT NULL,
     tx_type smallint NOT NULL,
     sender varchar,
@@ -1384,21 +1368,21 @@ CREATE TABLE public.txs (
 );
 
 
-CREATE TABLE public.txs_1 (
+CREATE TABLE IF NOT EXISTS public.txs_1 (
     recipient_address varchar NOT NULL,
     recipient_alias varchar,
     amount bigint NOT NULL
 ) INHERITS (public.txs);
 
 
-CREATE TABLE public.txs_10 (
+CREATE TABLE IF NOT EXISTS public.txs_10 (
     sender varchar NOT NULL,
     sender_public_key varchar NOT NULL,
     alias varchar NOT NULL
 ) INHERITS (public.txs);
 
 
-CREATE TABLE public.txs_11 (
+CREATE TABLE IF NOT EXISTS public.txs_11 (
     sender varchar NOT NULL,
     sender_public_key varchar NOT NULL,
     asset_id varchar NOT NULL,
@@ -1406,7 +1390,7 @@ CREATE TABLE public.txs_11 (
 ) INHERITS (public.txs);
 
 
-CREATE TABLE public.txs_11_transfers (
+CREATE TABLE IF NOT EXISTS public.txs_11_transfers (
     tx_uid bigint NOT NULL,
     recipient_address varchar NOT NULL,
     recipient_alias varchar,
@@ -1416,13 +1400,13 @@ CREATE TABLE public.txs_11_transfers (
 );
 
 
-CREATE TABLE public.txs_12 (
+CREATE TABLE IF NOT EXISTS public.txs_12 (
     sender varchar NOT NULL,
     sender_public_key varchar NOT NULL
 ) INHERITS (public.txs);
 
 
-CREATE TABLE public.txs_12_data (
+CREATE TABLE IF NOT EXISTS public.txs_12_data (
     tx_uid bigint NOT NULL,
     data_key text NOT NULL,
     data_type text,
@@ -1435,14 +1419,14 @@ CREATE TABLE public.txs_12_data (
 );
 
 
-CREATE TABLE public.txs_13 (
+CREATE TABLE IF NOT EXISTS public.txs_13 (
     sender varchar NOT NULL,
     sender_public_key varchar NOT NULL,
     script varchar
 ) INHERITS (public.txs);
 
 
-CREATE TABLE public.txs_14 (
+CREATE TABLE IF NOT EXISTS public.txs_14 (
     sender varchar NOT NULL,
     sender_public_key varchar NOT NULL,
     asset_id varchar NOT NULL,
@@ -1450,7 +1434,7 @@ CREATE TABLE public.txs_14 (
 ) INHERITS (public.txs);
 
 
-CREATE TABLE public.txs_15 (
+CREATE TABLE IF NOT EXISTS public.txs_15 (
     sender varchar NOT NULL,
     sender_public_key varchar NOT NULL,
     asset_id varchar NOT NULL,
@@ -1458,7 +1442,7 @@ CREATE TABLE public.txs_15 (
 ) INHERITS (public.txs);
 
 
-CREATE TABLE public.txs_16 (
+CREATE TABLE IF NOT EXISTS public.txs_16 (
     sender varchar NOT NULL,
     sender_public_key varchar NOT NULL,
     dapp_address varchar NOT NULL,
@@ -1468,7 +1452,7 @@ CREATE TABLE public.txs_16 (
 ) INHERITS (public.txs);
 
 
-CREATE TABLE public.txs_16_args (
+CREATE TABLE IF NOT EXISTS public.txs_16_args (
     arg_type text NOT NULL,
     arg_value_integer bigint,
     arg_value_boolean boolean,
@@ -1481,7 +1465,7 @@ CREATE TABLE public.txs_16_args (
 );
 
 
-CREATE TABLE public.txs_16_payment (
+CREATE TABLE IF NOT EXISTS public.txs_16_payment (
     tx_uid bigint NOT NULL,
     amount bigint NOT NULL,
     position_in_payment smallint NOT NULL,
@@ -1490,7 +1474,7 @@ CREATE TABLE public.txs_16_payment (
 );
 
 
-CREATE TABLE  public.txs_17 (
+CREATE TABLE IF NOT EXISTS public.txs_17 (
     sender VARCHAR NOT NULL,
     sender_public_key VARCHAR NOT NULL,
     asset_id VARCHAR NOT NULL,
@@ -1499,7 +1483,7 @@ CREATE TABLE  public.txs_17 (
 ) INHERITS (public.txs);
 
 
-CREATE TABLE public.txs_2 (
+CREATE TABLE IF NOT EXISTS public.txs_2 (
     sender varchar NOT NULL,
     sender_public_key varchar NOT NULL,
     recipient_address varchar NOT NULL,
@@ -1508,7 +1492,7 @@ CREATE TABLE public.txs_2 (
 ) INHERITS (public.txs);
 
 
-CREATE TABLE public.txs_3 (
+CREATE TABLE IF NOT EXISTS public.txs_3 (
     sender varchar NOT NULL,
     sender_public_key varchar NOT NULL,
     asset_id varchar NOT NULL,
@@ -1521,7 +1505,7 @@ CREATE TABLE public.txs_3 (
 ) INHERITS (public.txs);
 
 
-CREATE TABLE public.txs_4 (
+CREATE TABLE IF NOT EXISTS public.txs_4 (
     sender varchar NOT NULL,
     sender_public_key varchar NOT NULL,
     asset_id varchar NOT NULL,
@@ -1533,7 +1517,7 @@ CREATE TABLE public.txs_4 (
 ) INHERITS (public.txs);
 
 
-CREATE TABLE public.txs_5 (
+CREATE TABLE IF NOT EXISTS public.txs_5 (
     sender varchar NOT NULL,
     sender_public_key varchar NOT NULL,
     asset_id varchar NOT NULL,
@@ -1542,7 +1526,7 @@ CREATE TABLE public.txs_5 (
 ) INHERITS (public.txs);
 
 
-CREATE TABLE public.txs_6 (
+CREATE TABLE IF NOT EXISTS public.txs_6 (
     sender varchar NOT NULL,
     sender_public_key varchar NOT NULL,
     asset_id varchar NOT NULL,
@@ -1550,7 +1534,7 @@ CREATE TABLE public.txs_6 (
 ) INHERITS (public.txs);
 
 
-CREATE TABLE public.txs_7 (
+CREATE TABLE IF NOT EXISTS public.txs_7 (
     sender varchar NOT NULL,
     sender_public_key varchar NOT NULL,
     order1 jsonb NOT NULL,
@@ -1565,7 +1549,7 @@ CREATE TABLE public.txs_7 (
 ) INHERITS (public.txs);
 
 
-CREATE TABLE public.txs_8 (
+CREATE TABLE IF NOT EXISTS public.txs_8 (
     sender varchar NOT NULL,
     sender_public_key varchar NOT NULL,
     recipient_address varchar NOT NULL,
@@ -1574,60 +1558,20 @@ CREATE TABLE public.txs_8 (
 ) INHERITS (public.txs);
 
 
-CREATE TABLE public.txs_9 (
+CREATE TABLE IF NOT EXISTS public.txs_9 (
     sender varchar NOT NULL,
     sender_public_key varchar NOT NULL,
     lease_tx_uid bigint
 ) INHERITS (public.txs);
 
 
-CREATE TABLE public.waves_data (
+CREATE TABLE IF NOT EXISTS public.waves_data (
 	height int4 NULL,
 	quantity numeric NOT NULL
 );
 
 
 INSERT INTO waves_data (height, quantity) VALUES (null, 10000000000000000);
-
-
-CREATE VIEW assets(asset_id, ticker, asset_name, description, sender, issue_height, issue_timestamp, total_quantity, decimals, reissuable, has_script, min_sponsored_asset_fee) AS
-	SELECT au.asset_id,
-       t.ticker,
-       au.name             AS asset_name,
-       au.description,
-       ao.issuer           AS sender,
-       ao.issue_height,
-       ao.issue_time_stamp AS issue_timestamp,
-       au.volume           AS total_quantity,
-       au.decimals,
-       au.reissuable,
-       CASE
-           WHEN au.script IS NOT NULL THEN true
-           ELSE false
-           END             AS has_script,
-       au.sponsorship      AS min_sponsored_asset_fee
-FROM asset_updates au
-         LEFT JOIN (SELECT tickers.asset_id,
-                           tickers.ticker
-                    FROM tickers) t ON au.asset_id::text = t.asset_id
-         LEFT JOIN asset_origins ao ON au.asset_id::text = ao.asset_id::text
-WHERE au.superseded_by = '9223372036854775806'::bigint
-UNION ALL
-SELECT 'WAVES'::character varying                         AS asset_id,
-       'WAVES'::text                                      AS ticker,
-       'Waves'::character varying                         AS asset_name,
-       ''::character varying                              AS description,
-       ''::character varying                              AS sender,
-       0                                                  AS issue_height,
-       '2016-04-11 21:00:00+00'::timestamp with time zone AS issue_timestamp,
-       ((SELECT waves_data.quantity
-         FROM waves_data
-         ORDER BY waves_data.height DESC NULLS LAST
-         LIMIT 1))::bigint::numeric                       AS total_quantity,
-       8                                                  AS decimals,
-       false                                              AS reissuable,
-       false                                              AS has_script,
-       NULL::bigint                                       AS min_sponsored_asset_fee;
 
 
 ALTER TABLE public.blocks ADD CONSTRAINT blocks_pkey PRIMARY KEY (height);
@@ -1718,9 +1662,6 @@ CREATE INDEX candles_max_height_index ON public.candles USING btree (max_height)
 
 
 CREATE INDEX candles_amount_price_ids_matcher_time_start_partial_1m_idx ON candles (amount_asset_id, price_asset_id, matcher_address, time_start) WHERE (("interval")::text = '1m'::text);
-
-
-CREATE UNIQUE INDEX tickers_ticker_idx ON tickers (ticker);
 
 
 CREATE INDEX txs_height_idx ON public.txs USING btree (height);
@@ -2147,6 +2088,133 @@ ALTER TABLE public.txs
 
 ALTER TABLE public.waves_data
     ADD CONSTRAINT fk_waves_data FOREIGN KEY (height) REFERENCES blocks(height) ON DELETE CASCADE;
+
+-- view asset used by data-service requires tables asset_updates and asset_origins
+-- these tables (and blocks_microblocks) are filled with separated assets-consumer
+-- until it is rewritten to a new one
+
+CREATE TABLE IF NOT EXISTS blocks_microblocks
+(
+    uid        BIGINT GENERATED BY DEFAULT AS IDENTITY
+        CONSTRAINT blocks_microblocks_uid_key
+            UNIQUE,
+    id         VARCHAR NOT NULL
+        CONSTRAINT blocks_microblocks_pkey
+            PRIMARY KEY,
+    height     INTEGER NOT NULL,
+    time_stamp TIMESTAMP WITH TIME ZONE
+);
+
+CREATE INDEX IF NOT EXISTS blocks_microblocks_id_idx
+    ON blocks_microblocks (id);
+
+CREATE INDEX IF NOT EXISTS blocks_microblocks_time_stamp_uid_idx
+    ON blocks_microblocks (time_stamp DESC, uid DESC);
+
+
+CREATE TABLE IF NOT EXISTS asset_updates
+(
+    block_uid     BIGINT   NOT NULL
+        CONSTRAINT asset_updates_block_uid_fkey
+            REFERENCES blocks_microblocks (uid)
+            ON DELETE CASCADE,
+    uid           BIGINT GENERATED BY DEFAULT AS IDENTITY
+        CONSTRAINT asset_updates_uid_key
+            UNIQUE,
+    superseded_by BIGINT   NOT NULL,
+    asset_id      VARCHAR  NOT NULL,
+    decimals      SMALLINT NOT NULL,
+    name          VARCHAR  NOT NULL,
+    description   VARCHAR  NOT NULL,
+    reissuable    BOOLEAN  NOT NULL,
+    volume        NUMERIC  NOT NULL,
+    script        VARCHAR,
+    sponsorship   BIGINT,
+    nft           BOOLEAN  NOT NULL,
+    CONSTRAINT asset_updates_pkey
+        PRIMARY KEY (superseded_by, asset_id)
+);
+
+CREATE INDEX IF NOT EXISTS asset_updates_block_uid_idx
+    ON asset_updates (block_uid);
+
+CREATE INDEX IF NOT EXISTS asset_updates_to_tsvector_idx
+    ON asset_updates USING gin (to_tsvector('simple'::regconfig, name::TEXT))
+    WHERE (superseded_by = '9223372036854775806'::BIGINT);
+
+
+CREATE TABLE IF NOT EXISTS asset_origins
+(
+    asset_id               VARCHAR                  NOT NULL
+        CONSTRAINT asset_origins_pkey
+            primary key,
+    first_asset_update_uid BIGINT                   NOT NULL
+        CONSTRAINT asset_origins_first_asset_update_uid_fkey
+            REFERENCES asset_updates (uid)
+            ON DELETE CASCADE,
+    origin_transaction_id  VARCHAR                  NOT NULL,
+    issuer                 VARCHAR                  NOT NULL,
+    issue_height           INTEGER                  NOT NULL,
+    issue_time_stamp       TIMESTAMP WITH TIME ZONE NOT NULL
+);
+
+
+CREATE TABLE IF NOT EXISTS public.assets_metadata (
+    asset_id varchar,
+    asset_name varchar,
+    ticker varchar,
+    height integer
+);
+
+
+CREATE TABLE IF NOT EXISTS tickers (
+	asset_id TEXT NOT NULL
+		CONSTRAINT tickers_pkey
+			PRIMARY KEY,
+	ticker TEXT NOT NULL
+);
+
+CREATE UNIQUE INDEX tickers_ticker_idx ON tickers (ticker);
+
+
+CREATE VIEW assets(asset_id, ticker, asset_name, description, sender, issue_height, issue_timestamp, total_quantity, decimals, reissuable, has_script, min_sponsored_asset_fee) AS
+	SELECT au.asset_id,
+       t.ticker,
+       au.name             AS asset_name,
+       au.description,
+       ao.issuer           AS sender,
+       ao.issue_height,
+       ao.issue_time_stamp AS issue_timestamp,
+       au.volume           AS total_quantity,
+       au.decimals,
+       au.reissuable,
+       CASE
+           WHEN au.script IS NOT NULL THEN true
+           ELSE false
+           END             AS has_script,
+       au.sponsorship      AS min_sponsored_asset_fee
+FROM asset_updates au
+         LEFT JOIN (SELECT tickers.asset_id,
+                           tickers.ticker
+                    FROM tickers) t ON au.asset_id::text = t.asset_id
+         LEFT JOIN asset_origins ao ON au.asset_id::text = ao.asset_id::text
+WHERE au.superseded_by = '9223372036854775806'::bigint
+UNION ALL
+SELECT 'WAVES'::character varying                         AS asset_id,
+       'WAVES'::text                                      AS ticker,
+       'Waves'::character varying                         AS asset_name,
+       ''::character varying                              AS description,
+       ''::character varying                              AS sender,
+       0                                                  AS issue_height,
+       '2016-04-11 21:00:00+00'::timestamp with time zone AS issue_timestamp,
+       ((SELECT waves_data.quantity
+         FROM waves_data
+         ORDER BY waves_data.height DESC NULLS LAST
+         LIMIT 1))::bigint::numeric                       AS total_quantity,
+       8                                                  AS decimals,
+       false                                              AS reissuable,
+       false                                              AS has_script,
+       NULL::bigint                                       AS min_sponsored_asset_fee;
 
 
 -- Specific for testnet indexes
