@@ -16,21 +16,41 @@ function unfold(fn, seed) {
 // blockData may contain symbols {}, so its need to count
 const splitBlocks = s =>
   unfold(cur => {
+    // position after last close curve bracket
     let end = -1;
+    // counter of curve brackets
     let c = 1;
+    // current position
     let i = 0;
+    // whether current processing part of s is quoted
+    let quoted = 0;
+    // whether block found 
     let found = false;
     while (i < cur.length && !found) {
-      if (cur[i] === "{") c++;
-      else if (cur[i] === "}") c--;
-      if (c === 1) {
-        end = i;
-        found = true;
-      } else {
+      if (cur[i] === '"') {
+        // whether it not escaped quote
+        if (i == 0 || cur[i-1] !== '\\') {
+          quoted = !quoted;
+        }
+      }
+      
+      // it doesn't need to handle quoted text
+      if (quoted) {
         i++;
+        continue;
+      } else {
+        if (cur[i] === "{") c++;
+        else if (cur[i] === "}") c--;
+        if (c === 1) {
+          end = i;
+          found = true;
+        } else {
+          i++;
+        }
       }
     }
 
+    // there are no blocks in the specified string
     if (end === -1) {
       return false;
     } else {
