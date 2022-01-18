@@ -28,12 +28,17 @@ const splitBlocks = s =>
     let found = false;
     while (i < cur.length && !found) {
       if (cur[i] === '"') {
-        // whether it not escaped quote
-        if (i == 0 || cur[i-1] !== '\\') {
+        let isEscapedQuote = false;
+        // escaped quote, but not escaped slash
+        if (i > 1 && cur[i - 1] == "\\" && cur[i - 2] !== "\\") {
+          isEscapedQuote = true;
+        }
+        // whether it is not escaped quote (syntax quote, but not in the text)
+        if (i == 0 || !isEscapedQuote) {
           quoted = !quoted;
         }
       }
-      
+
       // it doesn't need to handle quoted text
       if (quoted) {
         i++;
@@ -41,6 +46,7 @@ const splitBlocks = s =>
       } else {
         if (cur[i] === "{") c++;
         else if (cur[i] === "}") c--;
+
         if (c === 1) {
           end = i;
           found = true;
