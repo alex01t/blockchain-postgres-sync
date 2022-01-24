@@ -13,6 +13,8 @@ SET row_security = off;
 CREATE EXTENSION IF NOT EXISTS btree_gin WITH SCHEMA public;
 COMMENT ON EXTENSION btree_gin IS 'support for indexing common datatypes in GIN';
 
+CREATE EXTENSION IF NOT EXISTS btree_gist WITH SCHEMA public;
+
 
 CREATE OR REPLACE  FUNCTION public.count_affected_rows() RETURNS integer
     LANGUAGE plpgsql
