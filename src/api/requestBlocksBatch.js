@@ -16,6 +16,10 @@ function unfold(fn, seed) {
 // blockData may contain symbols {}, so its need to count
 const splitBlocks = (s) =>
   unfold((cur) => {
+    if (cur.length < 1) {
+      return false;
+    }
+
     // position after last close curve bracket
     let end = -1;
     // counter of curve brackets
@@ -26,11 +30,16 @@ const splitBlocks = (s) =>
     let quoted = false;
     // whether block found
     let found = false;
+
     while (i < cur.length && !found) {
       if (cur[i] === '"') {
         let isEscapedQuote = false;
         // escaped quote, but not escaped slash
-        if (i > 1 && cur[i - 1] == "\\" && cur[i - 2] !== "\\") {
+        // " - not escaped
+        // \" - escaped
+        // \\" - not escaped quote (escaped slash)
+        // \\\" - escaped quote (escaped slash)
+        if (i > 1 && (cur[i - 1] === "\\" && cur[i - 2] !== "\\") || (i > 2 && cur[i - 1] === "\\" && cur[i - 2] === "\\" && cur[i - 3] === "\\")) {
           isEscapedQuote = true;
         }
         // whether it is not escaped quote (syntax quote, but not in the text)
@@ -56,7 +65,7 @@ const splitBlocks = (s) =>
       }
     }
 
-    // there are no blocks in the specified string
+    // failure scenario: there are no entire blocks in not-empty string
     if (end === -1) {
       return false;
     } else {

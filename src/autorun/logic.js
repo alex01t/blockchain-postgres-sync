@@ -1,6 +1,7 @@
 const createRequestHeights = require('../utils/createRequestHeights');
 
-const BLOCKS_PER_ITER = 10000;
+// How often to commit fetched blocks
+const BLOCKS_PER_ITER = 1000;
 const BLOCKS_CLOSE_ENOUGH_FOR_UPDATE_START = 50;
 
 const autorun = options => ({
@@ -17,8 +18,6 @@ const autorun = options => ({
           startHeight + BLOCKS_PER_ITER - 1,
           apiHeight
         );
-
-        console.info(`Starting blockchain-postgres-sync autorun from height ${startHeight}`);
 
         if (endHeight - startHeight > BLOCKS_CLOSE_ENOUGH_FOR_UPDATE_START) {
           const batches = createRequestHeights(
