@@ -1989,6 +1989,102 @@ CREATE index txs_9_id_idx ON public.txs_9 USING hash (id);
 CREATE INDEX waves_data_height_desc_quantity_idx ON public.waves_data (height DESC NULLS LAST, quantity);
 
 
+CREATE INDEX IF NOT EXISTS blocks_time_stamp_height_gist_idx
+    ON blocks using gist (time_stamp, height);
+
+CREATE INDEX IF NOT EXISTS txs_time_stamp_uid_gist_idx
+    ON txs using gist (time_stamp, uid);
+
+
+CREATE INDEX IF NOT EXISTS txs_1_time_stamp_uid_gist_idx
+    ON txs_1 using gist (time_stamp, uid);
+
+
+CREATE INDEX IF NOT EXISTS txs_10_time_stamp_uid_gist_idx
+    ON txs_10 using gist (time_stamp, uid);
+
+
+CREATE INDEX IF NOT EXISTS txs_11_time_stamp_uid_gist_idx
+    ON txs_11 using gist (time_stamp, uid);
+
+
+CREATE INDEX IF NOT EXISTS txs_12_time_stamp_uid_gist_idx
+    ON txs_12 using gist (time_stamp, uid);
+
+
+CREATE INDEX IF NOT EXISTS txs_13_time_stamp_uid_gist_idx
+    ON txs_13 using gist (time_stamp, uid);
+
+
+CREATE INDEX IF NOT EXISTS txs_14_time_stamp_uid_gist_idx
+    ON txs_14 using gist (time_stamp, uid);
+
+
+CREATE INDEX IF NOT EXISTS txs_15_time_stamp_uid_gist_idx
+    ON txs_15 using gist (time_stamp, uid);
+
+
+CREATE INDEX IF NOT EXISTS txs_16_time_stamp_uid_gist_idx
+    ON txs_16 using gist (time_stamp, uid);
+
+
+CREATE INDEX IF NOT EXISTS txs_17_time_stamp_uid_gist_idx
+    ON txs_17 using gist (time_stamp, uid);
+
+
+CREATE INDEX IF NOT EXISTS txs_2_time_stamp_uid_gist_idx
+    ON txs_2 using gist (time_stamp, uid);
+
+
+CREATE INDEX IF NOT EXISTS txs_3_time_stamp_uid_gist_idx
+    ON txs_3 using gist (time_stamp, uid);
+
+
+CREATE INDEX IF NOT EXISTS txs_4_time_stamp_uid_gist_idx
+    ON txs_4 using gist (time_stamp, uid);
+
+
+CREATE INDEX IF NOT EXISTS txs_5_time_stamp_uid_gist_idx
+    ON txs_5 using gist (time_stamp, uid);
+
+
+CREATE INDEX IF NOT EXISTS txs_6_time_stamp_uid_gist_idx
+    ON txs_6 using gist (time_stamp, uid);
+
+
+CREATE INDEX IF NOT EXISTS txs_7_amount_asset_id_uid_idx
+    ON txs_7 (amount_asset_id, uid);
+
+
+CREATE INDEX IF NOT EXISTS txs_7_order_sender_1_uid_desc_idx
+    ON txs_7 ((order1 ->> 'sender'::text) asc, uid desc);
+
+
+CREATE INDEX IF NOT EXISTS txs_7_order_sender_2_uid_desc_idx
+    ON txs_7 ((order2 ->> 'sender'::text) asc, uid desc);
+
+
+CREATE INDEX IF NOT EXISTS txs_7_time_stamp_gist_idx
+    ON txs_7 using gist (time_stamp);
+
+
+CREATE INDEX IF NOT EXISTS txs_7_time_stamp_uid_gist_idx
+    ON txs_7 using gist (time_stamp, uid);
+
+
+CREATE INDEX IF NOT EXISTS txs_7_uid_height_time_stamp_idx
+    ON txs_7 (uid, height, time_stamp);
+
+
+CREATE INDEX IF NOT EXISTS txs_8_time_stamp_uid_gist_idx
+    ON txs_8 using gist (time_stamp, uid);
+
+
+CREATE INDEX IF NOT EXISTS txs_9_time_stamp_uid_gist_idx
+    ON txs_9 using gist (time_stamp, uid);
+
+
+
 CREATE RULE block_delete AS
     ON DELETE TO public.blocks_raw DO DELETE FROM public.blocks
   WHERE (blocks.height = old.height);
@@ -2114,6 +2210,9 @@ CREATE INDEX IF NOT EXISTS blocks_microblocks_id_idx
 CREATE INDEX IF NOT EXISTS blocks_microblocks_time_stamp_uid_idx
     ON blocks_microblocks (time_stamp DESC, uid DESC);
 
+CREATE INDEX IF NOT EXISTS blocks_time_stamp_height_gist_idx
+    on blocks using gist (time_stamp, height);
+
 
 CREATE TABLE IF NOT EXISTS asset_updates
 (
@@ -2226,23 +2325,37 @@ CREATE INDEX IF NOT EXISTS txs_7_amount_asset_id_price_asset_id_uid_partial_idx
     ON txs_7 (amount_asset_id, price_asset_id, uid)
     WHERE ((sender)::TEXT = '3PJaDyprvekvPXPuAtxrapacuDJopgJRaU3'::TEXT);
 
-CREATE INDEX IF NOT EXISTS txs_7_order_senders_uid_partial_idx
-    ON txs_7 ((ARRAY[order1 ->> 'sender'::TEXT, order2 ->> 'sender'::TEXT]), uid)
-    WHERE ((sender)::TEXT = '3PJaDyprvekvPXPuAtxrapacuDJopgJRaU3'::TEXT);
+
+CREATE INDEX IF NOT EXISTS txs_7_amount_asset_id_price_asset_id_uid_partial_new_idx
+    ON txs_7 (amount_asset_id, price_asset_id, uid)
+    WHERE ((sender)::TEXT = '3PEjHv3JGjcWNpYEEkif2w8NXV4kbhnoGgu'::TEXT);
+
+
+CREATE INDEX IF NOT EXISTS txs_7_order_sender_1_amount_asset_price_asset_uid_desc_part_idx
+    ON txs_7 ((order1 ->> 'sender'::text) asc, amount_asset_id asc, price_asset_id asc, uid desc)
+    where ((sender)::text = '3PJaDyprvekvPXPuAtxrapacuDJopgJRaU3'::text);
+
+
+CREATE INDEX IF NOT EXISTS txs_7_order_sender_1_amount_asset_price_asset_uid_desc_part_new_idx
+    ON txs_7 ((order1 ->> 'sender'::text) asc, amount_asset_id asc, price_asset_id asc, uid desc)
+    where ((sender)::text = '3PEjHv3JGjcWNpYEEkif2w8NXV4kbhnoGgu'::text);
+
+
+CREATE INDEX IF NOT EXISTS txs_7_order_sender_2_amount_asset_price_asset_uid_desc_part_idx
+    ON txs_7 ((order2 ->> 'sender'::text) asc, amount_asset_id asc, price_asset_id asc, uid desc)
+    where ((sender)::text = '3PJaDyprvekvPXPuAtxrapacuDJopgJRaU3'::text);
+
+
+CREATE INDEX IF NOT EXISTS txs_7_order_sender_2_amount_asset_price_asset_uid_desc_part_new_idx
+    ON txs_7 ((order2 ->> 'sender'::text) asc, amount_asset_id asc, price_asset_id asc, uid desc)
+    where ((sender)::text = '3PEjHv3JGjcWNpYEEkif2w8NXV4kbhnoGgu'::text);
+
 
 CREATE INDEX IF NOT EXISTS candles_assets_id_partial_idx
     ON candles (amount_asset_id, price_asset_id)
     WHERE ((("interval")::TEXT = '1d'::TEXT) AND
            ((matcher_address)::TEXT = '3PJaDyprvekvPXPuAtxrapacuDJopgJRaU3'::TEXT));
 
-
-CREATE INDEX IF NOT EXISTS txs_7_amount_asset_id_price_asset_id_uid_partial_new_idx
-    ON txs_7 (amount_asset_id, price_asset_id, uid)
-    WHERE ((sender)::TEXT = '3PEjHv3JGjcWNpYEEkif2w8NXV4kbhnoGgu'::TEXT);
-
-CREATE INDEX IF NOT EXISTS txs_7_order_senders_uid_partial_new_idx
-    ON txs_7 ((ARRAY[order1 ->> 'sender'::TEXT, order2 ->> 'sender'::TEXT]), uid)
-    WHERE ((sender)::TEXT = '3PEjHv3JGjcWNpYEEkif2w8NXV4kbhnoGgu'::TEXT);
 
 CREATE INDEX IF NOT EXISTS candles_assets_id_partial_new_idx
     ON candles (amount_asset_id, price_asset_id)
